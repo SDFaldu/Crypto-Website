@@ -9,7 +9,17 @@ $cpassword = $_POST['cpassword'];
 $contact = $_POST['contact'];
 $email = $_POST['email'];
 
-if ($password != $cpassword) 
+
+$sql="select * from project where username='$username'";
+$res=mysqli_query($conn,$sql);
+if (mysqli_num_rows($res)>0){
+  $row = mysqli_fetch_assoc($res);
+  if($username==$row['username'])
+  {
+  header("Location: register.php?error=username already exists.....");
+  }
+}
+else if ($password != $cpassword) 
   {
     header("Location: register.php?error=Both password doesn't match");
   }
@@ -22,7 +32,7 @@ else if (strlen($contact)!=10)
     header("Location: register.php?error=Contact length is lessthan 10");
   }
   else{
-  InsertData($username, $password, $contact, $email);
+  $result = mysqli_query($conn,"insert into project(username,password,contact,email) values('$username','$password','$contact','$email')");
   header("Location: http://localhost/Home_page/Login/login.php");
   }
 }
@@ -63,7 +73,7 @@ session_abort();
           </div>
           <div class="input-box">
             <span class="details">Phone Number</span>
-            <input type="text" placeholder="Enter your number" name="contact" required>
+            <input type="text" placeholder="Enter your number" name="contact" maxlength="10" required>
           </div>
           <div class="input-box">
             <span class="details">Password</span>
@@ -96,6 +106,9 @@ session_abort();
         </div>
         <div class="button">
           <input type="submit" value="Register">
+        </div>
+        <div class="inputBX">
+            <p>already have an account! <a href="../Login/login.php">Sign in</a></p>
         </div>
       </form>
     </div>
