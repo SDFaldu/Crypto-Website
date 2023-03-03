@@ -1,13 +1,22 @@
 <?php
 include "functions.php";
+session_start();
+
 if(isset($_POST['username']) && isset($_POST['password']))
 {
-$username = $_POST['username'];
-$password = $_POST['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
     $sql = "SELECT * FROM project WHERE username='$username' AND password='$password'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result)){
+        $row = mysqli_fetch_assoc($result);
         header("Location: http://localhost/Home_page/home/homepage.php");
+        $_SESSION["user_id"]=$row['user_id'];
+        $_SESSION["username"]=$row['username'];
+        $_SESSION["email"]=$row['email'];
+        $_SESSION["contact"]=$row['contact'];
+        $_SESSION["login_sess"]="1";
     }
     else
     {
@@ -29,7 +38,7 @@ $password = $_POST['password'];
 <body>
     <section>
         <div class="imgBx">
-            <img src="image/login1.png">
+            <img src="image/register_bg.jpg">
             <div class="text1">
                 <h1>WELCOME TO  <br>CRYPTO CIRCLE</h1>
                 <div class="text2"><h3>Invest for free <br> and earn money</h3></div>
@@ -38,7 +47,7 @@ $password = $_POST['password'];
         </div>
         <div class="contentBx">
             <div class="formBx">
-                <h2>Login</h2>
+                <h2>sign in</h2>
                 <form action="#" method="post">
                     <div class="inputBX">
                         <span>Username</span>
@@ -50,7 +59,7 @@ $password = $_POST['password'];
                     </div>
                     
                     <div class="inputBX">
-                        <input type="submit" value="Sign in"name="signin">
+                        <input type="submit" value="sign in" name="signin">
                     </div>
                     <div class="inputBX">
                         <p>Don't have an account? <a href="../register/register.php">Sign up</a></p>
