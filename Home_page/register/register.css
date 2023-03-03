@@ -52,6 +52,13 @@ form .input-box span.details{
   font-weight: 500;
   margin-bottom: 5px;
 }
+.inputBX p{
+  color: #607d8b;}
+.inputBX p a{
+  color: #0d0430;}
+.inputBX p a:hover{
+    color: #0d0430;
+} 
 .user-details .input-box input{
   height: 45px;
   width: 100%;
@@ -117,7 +124,7 @@ form .input-box span.details{
    background: linear-gradient(135deg, #e0580f, #0d0430);
  }
  form .button input:hover{
-  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  background: linear-gradient(-135deg, #e0580f, #0d0430);
   }
  @media(max-width: 584px){
  .container{
