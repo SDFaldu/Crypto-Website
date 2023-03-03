@@ -9,14 +9,25 @@ if (isset($_POST['username'])) {
 	$phone = $_POST['contact'];
 	$password = $_POST['password'];
 	
-	$sql = "update project set username='$name', email='$email', contact='$phone', password='$password' where user_id='$user_id'";
-	
+	$sql="select * from project where username='$name'";
+$res=mysqli_query($conn,$sql);
+if (mysqli_num_rows($res)>0){
+  $row = mysqli_fetch_assoc($res);
+  if($name==$row['username'])
+  {
+    echo "<script>alert('username already exixt')</script>";
+  }
+}
+  else{
+    $sql = "update project set username='$name', email='$email', contact='$phone', password='$password' where user_id='$user_id'";
 	if (mysqli_query($conn, $sql)) {
 		echo "Profile updated successfully.";
     header("Location: http://localhost/Home_page/home/homepage.php");
 	} else {
 		echo "Error updating profile: ";
 	}
+  }
+  
 	
   exit();
 } 
